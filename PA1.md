@@ -84,6 +84,17 @@ for (rowIndex in which(is.na(data$steps))) {
 }
 ```
 
+Replot the daily pattern after filling in missing values.
+
+
+```r
+aggregatedData <- aggregate(dataClean$steps, by=list(dataClean$date), FUN=sum)
+colnames(aggregatedData) <- c('date','steps')
+plot(aggregatedData)
+```
+
+![plot of chunk stepsperdayclean](figure/stepsperdayclean-1.png) 
+
 ## Are there differences in activity patterns between weekdays and weekends?
 
 Aggregate the cleaned data accorting to interval and weekend-weekday.

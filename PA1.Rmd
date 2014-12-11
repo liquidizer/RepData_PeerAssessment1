@@ -19,7 +19,7 @@ data <- read.csv('activity.csv')
 
 The total steps summed up for each day.
 
-```{r}
+```{r stepsperday}
 aggregatedData <- aggregate(data$steps, by=list(data$date), FUN=sum)
 colnames(aggregatedData) <- c('date','steps')
 plot(aggregatedData)
@@ -39,7 +39,7 @@ The median number of steps per day is `r medianDailySteps`.
 ## What is the average daily activity pattern?
 
 Aggregate all data with respect to the time interval.
-```{r}
+```{r dailypattern}
 dailyPattern <- aggregate(data$steps, by=list(data$interval), 
                           FUN= function(v) mean(v, na.rm=TRUE))
 colnames(dailyPattern) <- c('time','steps')
@@ -73,6 +73,14 @@ for (rowIndex in which(is.na(data$steps))) {
 }
 ```
 
+Replot the daily pattern after filling in missing values.
+
+```{r stepsperdayclean}
+aggregatedData <- aggregate(dataClean$steps, by=list(dataClean$date), FUN=sum)
+colnames(aggregatedData) <- c('date','steps')
+plot(aggregatedData)
+```
+
 ## Are there differences in activity patterns between weekdays and weekends?
 
 Aggregate the cleaned data accorting to interval and weekend-weekday.
@@ -87,7 +95,7 @@ colnames(dailyPattern) <- c('time','isWE', 'steps')
 
 Plotting the results.
 
-```{r}
+```{r weeklypattern}
 par(mfrow = c(2, 1))
 par(cex = 0.6)
 par(mar = c(3, 3, 3, 3), oma = c(4, 4, 0.5, 0.5))
